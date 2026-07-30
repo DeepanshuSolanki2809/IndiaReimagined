@@ -1,1 +1,335 @@
+/* ==========================================================
+   India Reimagined
+   animations.css
+   Version: 1.0
+========================================================== */
 
+/* ===========================
+   FADE UP
+=========================== */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.fade-up {
+    animation: fadeUp .8s ease forwards;
+}
+
+/* ===========================
+   FADE IN
+=========================== */
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+.fade-in {
+    animation: fadeIn .8s ease forwards;
+}
+
+/* ===========================
+   ZOOM IN
+=========================== */
+
+@keyframes zoomIn {
+
+    from {
+        opacity: 0;
+        transform: scale(.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+.zoom-in {
+    animation: zoomIn .7s ease forwards;
+}
+
+/* ===========================
+   FLOAT
+=========================== */
+
+@keyframes floating {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+}
+
+.float {
+    animation: floating 6s ease-in-out infinite;
+}
+
+/* ===========================
+   PULSE
+=========================== */
+
+@keyframes pulse {
+
+    0% {
+        box-shadow: 0 0 0 0 rgba(255,153,51,.45);
+    }
+
+    70% {
+        box-shadow: 0 0 0 18px rgba(255,153,51,0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255,153,51,0);
+    }
+
+}
+
+.pulse {
+    animation: pulse 2.5s infinite;
+}
+
+/* ===========================
+   GRADIENT SHIFT
+=========================== */
+
+@keyframes gradientShift {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+}
+
+.gradient-bg {
+
+    background: linear-gradient(
+        135deg,
+        #040816,
+        #102040,
+        #0c1225,
+        #040816
+    );
+
+    background-size: 300% 300%;
+
+    animation: gradientShift 14s ease infinite;
+}
+
+/* ===========================
+   CARD HOVER
+=========================== */
+
+.card,
+.feature-card,
+.info-card,
+.stat-card {
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+}
+
+.card:hover,
+.feature-card:hover,
+.info-card:hover,
+.stat-card:hover {
+
+    transform: translateY(-10px);
+
+    box-shadow: 0 20px 40px rgba(0,0,0,.30);
+
+}
+
+/* ===========================
+   BUTTON HOVER
+=========================== */
+
+.button,
+.btn {
+
+    transition: .3s ease;
+
+}
+
+.button:hover,
+.btn:hover {
+
+    transform: translateY(-3px);
+
+}
+
+/* ===========================
+   NAVIGATION
+=========================== */
+
+header {
+
+    transition:
+        background .35s ease,
+        box-shadow .35s ease;
+
+}
+
+/* ===========================
+   IMAGE HOVER
+=========================== */
+
+.image-hover {
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+}
+
+.image-hover img {
+
+    transition: transform .5s ease;
+
+}
+
+.image-hover:hover img {
+
+    transform: scale(1.06);
+
+}
+
+/* ===========================
+   SCROLL REVEAL
+=========================== */
+
+.reveal {
+
+    opacity: 0;
+
+    transform: translateY(40px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+
+}
+
+.reveal.active {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+/* ===========================
+   LOADER
+=========================== */
+
+.loader {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: #040816;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 9999;
+
+}
+
+.loader.hidden {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: .6s ease;
+
+}
+
+.loader-circle {
+
+    width: 70px;
+
+    height: 70px;
+
+    border-radius: 50%;
+
+    border: 6px solid rgba(255,255,255,.12);
+
+    border-top-color: #ff9933;
+
+    animation: spin 1s linear infinite;
+
+}
+
+@keyframes spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+/* ===========================
+   REDUCED MOTION
+=========================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+        scroll-behavior: auto !important;
+
+    }
+
+}
