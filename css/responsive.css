@@ -1,1 +1,312 @@
+/* ==========================================================
+   India Reimagined
+   responsive.css
+   Mobile • Tablet • Desktop
+========================================================== */
 
+/* ==========================================================
+   LARGE DESKTOP (1400px+)
+========================================================== */
+
+@media (min-width:1400px){
+
+    .container{
+        max-width:1320px;
+    }
+
+    h1{
+        font-size:5.5rem;
+    }
+
+    h2{
+        font-size:3.2rem;
+    }
+
+}
+
+/* ==========================================================
+   DESKTOP
+========================================================== */
+
+@media (max-width:1200px){
+
+    .container{
+        width:92%;
+    }
+
+}
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width:992px){
+
+    h1{
+        font-size:3.8rem;
+    }
+
+    h2{
+        font-size:2.5rem;
+    }
+
+    .cards{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+    nav ul{
+
+        gap:18px;
+
+    }
+
+}
+
+/* ==========================================================
+   MOBILE NAVIGATION
+========================================================== */
+
+@media (max-width:768px){
+
+    header{
+
+        position:relative;
+
+    }
+
+    header .container{
+
+        flex-direction:column;
+
+        gap:20px;
+
+        padding:20px 0;
+
+    }
+
+    nav{
+
+        width:100%;
+
+    }
+
+    nav ul{
+
+        display:flex;
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:15px;
+
+    }
+
+    nav li{
+
+        width:45%;
+
+        text-align:center;
+
+    }
+
+}
+
+/* ==========================================================
+   MOBILE LAYOUT
+========================================================== */
+
+@media (max-width:768px){
+
+    section{
+
+        padding:70px 0;
+
+    }
+
+    .hero{
+
+        min-height:80vh;
+
+        padding-top:60px;
+
+    }
+
+    h1{
+
+        font-size:3rem;
+
+    }
+
+    h2{
+
+        font-size:2rem;
+
+    }
+
+    p{
+
+        font-size:1rem;
+
+    }
+
+    .cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .card{
+
+        padding:25px;
+
+    }
+
+    .button{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+}
+
+/* ==========================================================
+   SMALL PHONES
+========================================================== */
+
+@media (max-width:480px){
+
+    body{
+
+        font-size:15px;
+
+    }
+
+    h1{
+
+        font-size:2.3rem;
+
+    }
+
+    h2{
+
+        font-size:1.7rem;
+
+    }
+
+    .logo{
+
+        font-size:1.2rem;
+
+    }
+
+    nav li{
+
+        width:100%;
+
+    }
+
+    .hero{
+
+        min-height:70vh;
+
+    }
+
+    .hero p{
+
+        font-size:.95rem;
+
+    }
+
+    .button{
+
+        padding:14px 22px;
+
+    }
+
+}
+
+/* ==========================================================
+   LANDSCAPE PHONE
+========================================================== */
+
+@media (max-height:600px){
+
+    .hero{
+
+        min-height:100vh;
+
+    }
+
+}
+
+/* ==========================================================
+   PRINT
+========================================================== */
+
+@media print{
+
+    header,
+    footer,
+    .button{
+
+        display:none;
+
+    }
+
+    body{
+
+        background:#fff;
+
+        color:#000;
+
+    }
+
+    section{
+
+        padding:20px 0;
+
+    }
+
+}
+
+/* ==========================================================
+   ACCESSIBILITY
+========================================================== */
+
+@media (prefers-contrast:more){
+
+    body{
+
+        background:#000;
+
+        color:#fff;
+
+    }
+
+    .card{
+
+        border:2px solid #fff;
+
+    }
+
+}
+
+@media (prefers-reduced-motion:reduce){
+
+    *{
+
+        animation:none !important;
+
+        transition:none !important;
+
+        scroll-behavior:auto !important;
+
+    }
+
+}
