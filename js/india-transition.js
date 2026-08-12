@@ -11,6 +11,7 @@
      ========================================================= */
 
   const CONFIG = {
+    svgPath: "assets/india.svg",
     duration: 4200,
     skipOnReturn: false,
     showOncePerSession: false,
@@ -387,85 +388,19 @@
        Designed specifically for this intro.
        ======================================================= */
 
-    const indiaPoints = [
-      [-0.10, 3.30],
-      [0.22, 3.20],
-      [0.40, 2.98],
-      [0.67, 2.82],
-      [0.89, 2.65],
-      [1.13, 2.42],
-      [1.34, 2.18],
-      [1.47, 1.90],
-      [1.54, 1.63],
-      [1.62, 1.37],
-      [1.55, 1.12],
-      [1.42, 0.92],
-      [1.25, 0.72],
-      [1.11, 0.46],
-      [0.96, 0.16],
-      [0.84, -0.20],
-      [0.76, -0.58],
-      [0.64, -0.91],
-      [0.50, -1.24],
-      [0.32, -1.53],
-      [0.14, -1.84],
-      [-0.05, -2.16],
-      [-0.22, -2.46],
-      [-0.39, -2.73],
-      [-0.56, -2.90],
-      [-0.74, -2.72],
-      [-0.87, -2.43],
-      [-0.98, -2.12],
-      [-1.08, -1.80],
-      [-1.20, -1.48],
-      [-1.36, -1.20],
-      [-1.54, -0.96],
-      [-1.70, -0.71],
-      [-1.88, -0.55],
-      [-2.02, -0.31],
-      [-2.12, -0.04],
-      [-2.08, 0.22],
-      [-1.96, 0.46],
-      [-1.83, 0.68],
-      [-1.68, 0.89],
-      [-1.56, 1.09],
-      [-1.45, 1.29],
-      [-1.28, 1.46],
-      [-1.10, 1.61],
-      [-0.89, 1.75],
-      [-0.68, 1.91],
-      [-0.48, 2.10],
-      [-0.30, 2.30],
-      [-0.17, 2.58]
-    ];
+    const loader = new THREE.SVGLoader();
 
-    const shape = new THREE.Shape();
-
-    shape.moveTo(
-      indiaPoints[0][0],
-      indiaPoints[0][1]
-    );
-
-    for (let i = 1; i < indiaPoints.length; i++) {
-      shape.lineTo(
-        indiaPoints[i][0],
-        indiaPoints[i][1]
-      );
-    }
-
-    shape.closePath();
-
-    const geometry = new THREE.ExtrudeGeometry(shape, {
-      depth: 0.26,
-      bevelEnabled: true,
-      bevelSegments: 3,
-      steps: 1,
-      bevelSize: 0.045,
-      bevelThickness: 0.045
-    });
-
-    geometry.center();
-
+loader.load(
+  "assets/india.svg",
+  (data) => {
+      // Convert SVG paths into 3D geometry
+      // Create India
+      // Add lighting
+      // Add glow
+      // Add particles
+      // Continue animation
+  }
+);
     /* =======================================================
        INDIA MATERIAL
        ======================================================= */
