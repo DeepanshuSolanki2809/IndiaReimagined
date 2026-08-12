@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bharat, Mid-Journey — Dusk to Dawn</title>
+<meta name="description" content="A field report on India's infrastructure — what's built, what still breaks, and the official 2047 vision.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dusk-1:#241b2e;
+    --dusk-2:#3a2b45;
+    --dusk-glow:#e8935a;
+    --midnight-1:#0a0c14;
+    --midnight-2:#12141f;
+    --rust:#b5533c;
+    --dawn-1:#7a4a1e;
+    --dawn-2:#d4a24e;
+    --dawn-3:#f7e0b5;
+    --ink:#241b14;
+    --paper:#f2efe9;
+    --muted:#a8a296;
+    --font-display:'Big Shoulders Display', sans-serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--paper);
+    background:var(--midnight-1);
+    overflow-x:hidden;
+    line-height:1.5;
+  }
+  img,svg{ display:block; max-width:100%; }
+  button{ font-family:inherit; }
+  a{ color:inherit; }
+
+  .ambient-bg{
+    position:fixed; inset:0; z-index:-2;
+    background: radial-gradient(120% 140% at 50% 0%, var(--dusk-1) 0%, var(--dusk-2) 70%);
+  }
+  .grain{
+    position:fixed; inset:0; z-index:-1; opacity:0.05; pointer-events:none;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:120px 120px;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal.in-view{ opacity:1; transform:none; }
+  .d1{transition-delay:.08s;} .d2{transition-delay:.16s;} .d3{transition-delay:.24s;} .d4{transition-delay:.32s;}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{ transition:none; opacity:1; transform:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{ min-height:100svh; display:flex; align-items:center; justify-content:center; padding:8vh 6vw; text-align:center; position:relative; }
+  .hero-inner{ max-width:900px; }
+  .eyebrow{ font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.18em; font-size:.72rem; color:var(--dusk-glow); margin:0 0 1.3rem; }
+  .hero-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(4rem,16vw,9.5rem); line-height:.85; margin:0; letter-spacing:.005em; }
+  .hero-title-sub{ display:block; font-size:clamp(1.1rem,3.6vw,2rem); font-weight:500; color:var(--muted); letter-spacing:.3em; text-transform:uppercase; margin-top:1rem; }
+  .hero-lead{ font-size:clamp(1.02rem,1.9vw,1.28rem); line-height:1.65; color:var(--paper); max-width:620px; margin:2.2rem auto 0; opacity:.92; }
+  .scroll-cue{ margin-top:4rem; font-family:var(--font-mono); font-size:.78rem; letter-spacing:.1em; color:var(--muted); display:flex; flex-direction:column; align-items:center; gap:.6rem; }
+  .scroll-cue-line{ width:1px; height:46px; background:linear-gradient(var(--dusk-glow), transparent); animation:pulseLine 2.2s ease-in-out infinite; }
+  @keyframes pulseLine{ 0%,100%{opacity:.25;} 50%{opacity:1;} }
+
+  /* ---------- journey / spine ---------- */
+  .journey{ position:relative; max-width:980px; margin:0 auto; padding:0 6vw 0 76px; }
+  .spine{ position:absolute; left:34px; top:0; bottom:0; width:2px; background:rgba(255,255,255,.12); }
+  .spine-fill{ position:absolute; left:0; top:0; width:100%; height:0%; background:linear-gradient(180deg, var(--dusk-glow), var(--rust) 45%, var(--dawn-2)); box-shadow:0 0 10px rgba(212,162,78,.5); }
+  .spine-dot{ position:absolute; left:50%; top:0; width:12px; height:12px; margin-left:-6px; margin-top:-6px; border-radius:50%; background:var(--dawn-3); box-shadow:0 0 18px 5px rgba(212,162,78,.55); }
+
+  .act{ position:relative; padding:13vh 0; }
+  .act-header{ position:relative; max-width:660px; }
+  .node{ position:absolute; left:-42px; top:6px; width:10px; height:10px; border-radius:50%; background:var(--paper); border:2px solid var(--dusk-glow); z-index:2; }
+  .act-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(2.1rem,5.6vw,3.4rem); line-height:.97; margin:.4rem 0 1.2rem; }
+  .act-lead{ font-size:1.03rem; line-height:1.65; opacity:.85; }
+
+  /* ---------- Act I: stat cards ---------- */
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08); margin-top:3rem; }
+  .stat-card{ background:rgba(10,12,20,.55); padding:1.7rem 1.5rem; }
+  .stat-label{ font-family:var(--font-mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:.7rem; }
+  .stat-value{ font-family:var(--font-mono); font-size:clamp(1.7rem,4vw,2.4rem); font-weight:600; color:var(--dawn-3); border:1px solid rgba(255,255,255,.15); display:inline-block; padding:.05em .3em; background:rgba(0,0,0,.35); }
+  .stat-note{ margin-top:.9rem; font-size:.9rem; line-height:1.55; opacity:.82; }
+
+  /* ---------- toggle module ---------- */
+  .toggle-module{ margin-top:3.5rem; border:1px solid rgba(255,255,255,.12); background:rgba(10,12,20,.5); padding:2rem; }
+  .toggle-header{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+  .toggle-header h3{ font-family:var(--font-display); font-size:1.5rem; margin:0; font-weight:700; }
+  .toggle-switch{ display:inline-flex; border:1px solid rgba(255,255,255,.2); border-radius:999px; overflow:hidden; }
+  .toggle-btn{ background:transparent; border:none; color:var(--muted); font-family:var(--font-mono); padding:.5rem 1.2rem; cursor:pointer; font-size:.82rem; letter-spacing:.05em; }
+  .toggle-btn.active{ background:var(--dawn-2); color:var(--ink); font-weight:600; }
+  .toggle-btn:focus-visible{ outline:2px solid var(--dawn-3); outline-offset:2px; }
+  .toggle-rows{ margin-top:1.4rem; }
+  .toggle-row{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding:1rem 0; border-top:1px solid rgba(255,255,255,.08); }
+  .toggle-row-label{ font-size:.92rem; color:var(--muted); }
+  .toggle-value{ font-family:var(--font-mono); font-size:1.25rem; font-weight:600; color:var(--dawn-3); transition:opacity .18s ease; white-space:nowrap; }
+  .toggle-value.fade{ opacity:0; }
+
+  /* ---------- Act II: ledger ---------- */
+  .ledger{ margin-top:3rem; display:flex; flex-direction:column; gap:2px; }
+  .ledger-entry{ background:rgba(255,255,255,.03); border-left:3px solid var(--rust); padding:1.6rem 1.8rem; }
+  .ledger-tag{ font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em; color:var(--rust); margin-bottom:.5rem; }
+  .ledger-headline{ font-family:var(--font-display); font-size:clamp(1.25rem,3vw,1.75rem); font-weight:700; margin:0 0 .6rem; }
+  .ledger-stat{ font-family:var(--font-mono); font-size:.98rem; color:var(--dawn-3); margin-bottom:.5rem; }
+  .ledger-note{ font-size:.93rem; line-height:1.6; opacity:.8; max-width:620px; }
+
+  .bar-chart{ margin-top:3rem; }
+  .bar-chart-title{ font-family:var(--font-mono); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:1.4rem; }
+  .bar-row{ margin-bottom:1.3rem; }
+  .bar-row-label{ display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:.85rem; margin-bottom:.4rem; color:var(--paper); opacity:.85; }
+  .bar-track{ height:9px; background:rgba(255,255,255,.08); border-radius:4px; overflow:hidden; }
+  .bar-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--rust),var(--dawn-2)); transition:width 1.4s cubic-bezier(.16,1,.3,1); border-radius:4px; }
+  .bar-note{ margin-top:.8rem; font-size:.82rem; opacity:.6; }
+
+  /* ---------- Act III: vision ---------- */
+  .act-3-panel{ background:linear-gradient(180deg, rgba(247,224,181,.12), rgba(247,224,181,.92) 26%, var(--dawn-3) 100%); border-radius:20px; padding:clamp(2rem,5vw,4rem); box-shadow:0 0 90px rgba(212,162,78,.22); color:var(--ink); }
+  .act-3-panel .eyebrow{ color:var(--dawn-1); }
+  .act-3-panel .act-lead{ opacity:.78; }
+
+  .pillars{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:2rem; margin-top:3rem; }
+  .pillar{ text-align:center; }
+  .pillar-column{ width:34px; height:110px; margin:0 auto 1.2rem; background:linear-gradient(180deg,var(--paper),var(--dawn-2)); position:relative; border-radius:2px 2px 0 0; }
+  .pillar-column::before{ content:''; position:absolute; top:-9px; left:-9px; right:-9px; height:9px; background:var(--dawn-1); border-radius:2px; }
+  .pillar-column::after{ content:''; position:absolute; bottom:-7px; left:-15px; right:-15px; height:7px; background:var(--ink); opacity:.55; border-radius:2px; }
+  .pillar-en{ font-family:var(--font-mono); font-size:.72rem; color:var(--ink); opacity:.6; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.4rem; }
+  .pillar-name{ font-family:var(--font-display); font-weight:800; font-size:1.3rem; letter-spacing:.02em; margin-bottom:.6rem; }
+  .pillar-desc{ font-size:.88rem; line-height:1.5; opacity:.82; }
+
+  .targets-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.4rem; margin-top:3.2rem; }
+  .target-card{ background:rgba(36,27,20,.06); border:1px solid rgba(36,27,20,.16); padding:1.5rem; }
+  .target-tag{ font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--rust); margin-bottom:.6rem; }
+  .target-value{ font-family:var(--font-mono); font-size:clamp(1.5rem,3vw,2.05rem); font-weight:700; color:var(--ink); }
+  .target-note{ margin-top:.6rem; font-size:.86rem; opacity:.72; }
+
+  .themes-tags{ margin-top:3rem; display:flex; flex-wrap:wrap; gap:.7rem; }
+  .theme-tag{ font-family:var(--font-mono); font-size:.78rem; padding:.5rem 1rem; border:1px solid rgba(36,27,20,.25); border-radius:999px; }
+
+  /* ---------- closing ---------- */
+  .closing{ background:var(--dawn-3); color:var(--ink); text-align:center; padding:14vh 6vw 8vh; }
+  .closing h2{ font-family:var(--font-display); font-size:clamp(2.1rem,5.6vw,3.6rem); font-weight:800; margin:0 0 1.3rem; }
+  .closing p{ max-width:580px; margin:0 auto 1rem; font-size:1.02rem; line-height:1.7; opacity:.82; }
+  .source-note{ margin-top:3rem; font-family:var(--font-mono); font-size:.72rem; opacity:.55; letter-spacing:.03em; }
+
+  @media (max-width:640px){
+    .journey{ padding:0 6vw 0 48px; }
+    .spine{ left:20px; }
+    .node{ left:-28px; }
+    .act{ padding:9vh 0; }
+    .toggle-header{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient-bg" id="ambientBg"></div>
+<div class="grain"></div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow reveal">A field report — dusk to dawn</p>
+    <h1 class="hero-title reveal">BHARAT<span class="hero-title-sub">Mid-Journey</span></h1>
+    <p class="hero-lead reveal">Not a postcard. Not a complaint. A clear-eyed look at the India being built right now — what's already standing, what's still cracked, and what 2047 is officially supposed to look like.</p>
+    <div class="scroll-cue reveal">
+      <span>Scroll to begin</span>
+      <div class="scroll-cue-line"></div>
+    </div>
+  </div>
+</header>
+
+<main class="journey" id="journey">
+  <div class="spine">
+    <div class="spine-fill" id="spineFill"></div>
+    <div class="spine-dot" id="spineDot"></div>
+  </div>
+
+  <!-- ACT I -->
+  <section class="act act-1" id="act1">
+    <div class="act-header">
+      <span class="node"></span>
+      <p class="eyebrow reveal">Act I — Dusk</p>
+      <h2 class="act-title reveal">What we actually built</h2>
+      <p class="act-lead reveal">Skip the politics for a second. However you feel about who gets credit, these numbers are real, audited, and enormous in scale. This is the India that exists today, in steel, concrete, and copper wire.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card reveal" data-count-parent>
+        <div class="stat-label">National highways</div>
+        <div class="stat-value count" data-target="146566" data-suffix=" km">0 km</div>
+        <div class="stat-note">Up from 91,287 km in 2014. India's total road network now runs 63.73 lakh km — the second-longest in the world.</div>
+      </div>
+      <div class="stat-card reveal d1" data-count-parent>
+        <div class="stat-label">Railway electrification</div>
+        <div class="stat-value count" data-target="99.6" data-decimals="1" data-suffix="%">0%</div>
+        <div class="stat-note">Nearly the entire network runs electric now, up from about 1 in 5 route-km before 2014.</div>
+      </div>
+      <div class="stat-card reveal d2" data-count-parent>
+        <div class="stat-label">Power capacity</div>
+        <div class="stat-value count" data-target="505" data-suffix=" GW">0 GW</div>
+        <div class="stat-note">200 GW of it non-fossil — 130 GW solar, 53 GW wind, 8.8 GW nuclear. Target: 500 GW renewables alone by 2030.</div>
+      </div>
+      <div class="stat-card reveal d3" data-count-parent>
+        <div class="stat-label">Regional air routes (UDAN)</div>
+        <div class="stat-value count" data-target="665" data-suffix="">0</div>
+        <div class="stat-note">Across 95 airports, heliports and water aerodromes. Over 1.64 crore passengers have flown, many for the first time.</div>
+      </div>
+      <div class="stat-card reveal d4" data-count-parent>
+        <div class="stat-label">Metro rail</div>
+        <div class="stat-value count" data-target="945" data-suffix=" km">0 km</div>
+        <div class="stat-note">Operating across 21 cities. Another 919 km is under construction in 26 more.</div>
+      </div>
+    </div>
+
+    <div class="toggle-module reveal">
+      <div class="toggle-header">
+        <h3>A decade, side by side</h3>
+        <div class="toggle-switch" role="tablist" aria-label="Choose year">
+          <button class="toggle-btn active" data-year="2014" role="tab" aria-selected="true">2014</button>
+          <button class="toggle-btn" data-year="2026" role="tab" aria-selected="false">2026</button>
+        </div>
+      </div>
+      <div class="toggle-rows">
+        <div class="toggle-row">
+          <span class="toggle-row-label">National highways</span>
+          <span class="toggle-value" data-2014="91,287 km" data-2026="1,46,566 km">91,287 km</span>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-row-label">Railway electrification</span>
+          <span class="toggle-value" data-2014="~20%" data-2026="99.6%">~20%</span>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-row-label">Railway capital budget</span>
+          <span class="toggle-value" data-2014="₹32,000 Cr" data-2026="₹2.78 lakh Cr">₹32,000 Cr</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT II -->
+  <section class="act act-2" id="act2">
+    <div class="act-header">
+      <span class="node"></span>
+      <p class="eyebrow reveal">Act II — Midnight</p>
+      <h2 class="act-title reveal">What still breaks</h2>
+      <p class="act-lead reveal">This part isn't comfortable, and it shouldn't be smoothed over. A highway means little if the ambulance using it still can't find a working hospital at the other end. Here's the honest ledger.</p>
+    </div>
+
+    <div class="ledger">
+      <div class="ledger-entry reveal">
+        <div class="ledger-tag">[ GAP / URBAN ]</div>
+        <h3 class="ledger-headline">Cities carry the economy, not the load.</h3>
+        <div class="ledger-stat">Top 10 cities: ~9% of population, ~28% of GDP</div>
+        <p class="ledger-note">That imbalance is a compliment and a warning. India's own Economic Survey calls the urban story "unfinished promise" — housing choked by unclear land titles, commutes stretched by transit built for a fraction of today's population.</p>
+      </div>
+      <div class="ledger-entry reveal">
+        <div class="ledger-tag">[ GAP / HEALTH ]</div>
+        <h3 class="ledger-headline">A hospital on paper isn't a hospital nearby.</h3>
+        <div class="ledger-stat">Rural reach: ~13% to primary health centres, ~9.6% to hospitals</div>
+        <p class="ledger-note">About 80% of India's specialists practice in cities. If you live outside one, "universal healthcare" can mean a very long bus ride.</p>
+      </div>
+      <div class="ledger-entry reveal">
+        <div class="ledger-tag">[ GAP / GOVERNANCE ]</div>
+        <h3 class="ledger-headline">Your mayor probably can't fix your street.</h3>
+        <p class="ledger-note">Local bodies — the level of government closest to daily life — often have the least real power: fragmented authority, thin budgets, and leadership that's more symbolic than decisive.</p>
+      </div>
+      <div class="ledger-entry reveal">
+        <div class="ledger-tag">[ GAP / ENVIRONMENT ]</div>
+        <h3 class="ledger-headline">Growth and breathable air are still fighting each other.</h3>
+        <p class="ledger-note">Air quality, waste management, and water stress remain recurring drags on daily life — in exactly the cities driving the most growth.</p>
+      </div>
+    </div>
+
+    <div class="bar-chart reveal">
+      <div class="bar-chart-title">Share of rural India within reach of each facility</div>
+      <div class="bar-row">
+        <div class="bar-row-label"><span>Health subcentres</span><span>33%</span></div>
+        <div class="bar-track"><div class="bar-fill" data-width="33"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-row-label"><span>Primary health centres</span><span>13%</span></div>
+        <div class="bar-track"><div class="bar-fill" data-width="13"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-row-label"><span>Hospitals</span><span>9.6%</span></div>
+        <div class="bar-track"><div class="bar-fill" data-width="9.6"></div></div>
+      </div>
+      <p class="bar-note">The closer the facility to real emergency care, the less of rural India can actually reach one.</p>
+    </div>
+  </section>
+
+  <!-- ACT III -->
+  <section class="act act-3" id="act3">
+    <div class="act-3-panel">
+      <div class="act-header">
+        <span class="node"></span>
+        <p class="eyebrow reveal">Act III — Dawn</p>
+        <h2 class="act-title reveal">Viksit Bharat — the plan for 2047</h2>
+        <p class="act-lead reveal">This isn't speculative fiction. It's the Indian government's own official target, timed to the 100th year of independence: turn India into a developed nation. Here's what it's actually built on.</p>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar reveal">
+          <div class="pillar-column"></div>
+          <div class="pillar-en">Youth</div>
+          <div class="pillar-name">Yuva</div>
+          <p class="pillar-desc">Skilling and jobs for the youngest large population on Earth.</p>
+        </div>
+        <div class="pillar reveal d1">
+          <div class="pillar-column"></div>
+          <div class="pillar-en">The poor</div>
+          <div class="pillar-name">Garib</div>
+          <p class="pillar-desc">The stated goal is zero poverty — not reduced poverty.</p>
+        </div>
+        <div class="pillar reveal d2">
+          <div class="pillar-column"></div>
+          <div class="pillar-en">Women</div>
+          <div class="pillar-name">Mahilayen</div>
+          <p class="pillar-desc">Full participation, not token representation, in work and leadership.</p>
+        </div>
+        <div class="pillar reveal d3">
+          <div class="pillar-column"></div>
+          <div class="pillar-en">Farmers</div>
+          <div class="pillar-name">Annadata</div>
+          <p class="pillar-desc">The people who feed 1.4 billion, named as a pillar, not an afterthought.</p>
+        </div>
+      </div>
+
+      <div class="targets-grid">
+        <div class="target-card reveal">
+          <div class="target-tag">The target</div>
+          <div class="target-value">$4.15T → $30–40T</div>
+          <div class="target-note">Today's economy (6th-largest, growing ~6.5%/yr) versus the 2047 goal.</div>
+        </div>
+        <div class="target-card reveal d1">
+          <div class="target-tag">The target</div>
+          <div class="target-value">200 GW → 500 GW</div>
+          <div class="target-note">Renewable capacity today versus the 2030 milestone.</div>
+        </div>
+        <div class="target-card reveal d2">
+          <div class="target-tag">The target</div>
+          <div class="target-value">Net-zero by 2070</div>
+          <div class="target-note">India's committed carbon deadline.</div>
+        </div>
+      </div>
+
+      <div class="themes-tags reveal">
+        <span class="theme-tag">Empowered Indians</span>
+        <span class="theme-tag">Thriving, Sustainable Economy</span>
+        <span class="theme-tag">Innovation &amp; Technology</span>
+        <span class="theme-tag">Good Governance</span>
+        <span class="theme-tag">India in the World</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="closing">
+  <h2 class="reveal">Still mid-journey</h2>
+  <p class="reveal">None of this is a finished story — the highways are real, the gaps are real, and 2047 is still two decades away. The honest version of Indian progress lives in that gap between what's built and what's promised. Worth watching closely. Worth building, too.</p>
+  <p class="source-note">Public data referenced: IBEF, PIB / DD News, PRS Legislative, the Economic Survey 2025–26, and Government of India's Viksit Bharat 2047 framework. Figures current as of 2026.</p>
+</footer>
+
+<script>
+(function(){
+  // ---------- reveal on scroll ----------
+  var revealEls = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15, rootMargin:'0px 0px -8% 0px'});
+  revealEls.forEach(function(el){ io.observe(el); });
+
+  // ---------- count-up numbers ----------
+  var countEls = document.querySelectorAll('.count');
+  var countIo = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        animateCount(e.target);
+        countIo.unobserve(e.target);
+      }
+    });
+  },{threshold:0.4});
+  countEls.forEach(function(el){ countIo.observe(el); });
+
+  function animateCount(el){
+    var target = parseFloat(el.dataset.target);
+    var decimals = parseInt(el.dataset.decimals || '0', 10);
+    var suffix = el.dataset.suffix || '';
+    var duration = 1500;
+    var start = null;
+    function tick(ts){
+      if(!start) start = ts;
+      var t = Math.min(1, (ts - start) / duration);
+      var eased = 1 - Math.pow(1 - t, 3);
+      var val = target * eased;
+      el.textContent = val.toLocaleString('en-IN', {maximumFractionDigits:decimals, minimumFractionDigits:decimals}) + suffix;
+      if(t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // ---------- bar chart reveal ----------
+  var bars = document.querySelectorAll('.bar-fill');
+  var barIo = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.style.width = e.target.dataset.width + '%';
+        barIo.unobserve(e.target);
+      }
+    });
+  },{threshold:0.4});
+  bars.forEach(function(b){ barIo.observe(b); });
+
+  // ---------- toggle switch ----------
+  var toggleBtns = document.querySelectorAll('.toggle-btn');
+  var toggleValues = document.querySelectorAll('.toggle-value');
+  toggleBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      toggleBtns.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+      var year = btn.dataset.year;
+      toggleValues.forEach(function(v){
+        v.classList.add('fade');
+        setTimeout(function(){
+          v.textContent = v.dataset[year];
+          v.classList.remove('fade');
+        }, 160);
+      });
+    });
+  });
+
+  // ---------- ambient background + spine progress ----------
+  var ambientBg = document.getElementById('ambientBg');
+  var journey = document.getElementById('journey');
+  var spineFill = document.getElementById('spineFill');
+  var spineDot = document.getElementById('spineDot');
+
+  var duskC = [0x24,0x1b,0x2e];
+  var midC = [0x0a,0x0c,0x14];
+  var dawnC = [0xd4,0xa2,0x4e];
+  var dawnLightC = [0xf7,0xe0,0xb5];
+
+  function lerp(a,b,t){ return a + (b-a) * t; }
+  function lerpColor(c1,c2,t){ return [0,1,2].map(function(i){ return Math.round(lerp(c1[i],c2[i],t)); }); }
+  function toRgb(c){ return 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')'; }
+
+  function colorAt(p){
+    if(p < 0.4){ return lerpColor(duskC, midC, p/0.4); }
+    if(p < 0.7){ return midC; }
+    if(p < 0.95){ return lerpColor(midC, dawnC, (p-0.7)/0.25); }
+    return lerpColor(dawnC, dawnLightC, (p-0.95)/0.05);
+  }
+
+  var journeyTop = 0, journeyHeight = 1;
+  function measure(){
+    journeyTop = journey.offsetTop;
+    journeyHeight = journey.offsetHeight || 1;
+  }
+
+  var ticking = false;
+  function updateAll(){
+    var viewportRef = window.scrollY + window.innerHeight * 0.45;
+    var p = (viewportRef - journeyTop) / journeyHeight;
+    p = Math.min(1, Math.max(0, p));
+
+    var top = colorAt(p);
+    var bottom = colorAt(Math.min(1, p + 0.1));
+    ambientBg.style.background = 'radial-gradient(120% 140% at 50% 0%, ' + toRgb(top) + ' 0%, ' + toRgb(bottom) + ' 75%)';
+
+    spineFill.style.height = (p * 100) + '%';
+    spineDot.style.top = (p * 100) + '%';
+
+    ticking = false;
+  }
+
+  function onScroll(){
+    if(!ticking){
+      requestAnimationFrame(updateAll);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', function(){ measure(); updateAll(); });
+  measure();
+  updateAll();
+})();
+</script>
+
+</body>
+</html>
