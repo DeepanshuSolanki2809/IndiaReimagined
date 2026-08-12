@@ -1,9 +1,9 @@
-# india-reimagined
+# IndiaReimagined
 A vision grounded in reality. Inspired by possibility. Built for everyone.
 
 > **Designing the Future of India**
 
-India Reimagined is an open-source, research-driven website that explores evidence-based ideas, global best practices, and long-term opportunities for India's future development.
+India Reimagined is an open-source, research-driven website that explores evidence-based ideas, global best practices, and long-term opportunities for India's future development. A place where India's hardest problems are turned into understandable, testable, and continuously improvable system designs.
 
 The project is designed to be:
 
@@ -94,13 +94,13 @@ india-reimagined/
 Clone the repository.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/india-reimagined.git
+git clone https://github.com/YOUR_USERNAME/IndiaReimagined.git
 ```
 
 Open the project.
 
 ```bash
-cd india-reimagined
+cd IndiaReimagined
 ```
 
 Launch `index.html` in your browser.
